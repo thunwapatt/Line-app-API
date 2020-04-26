@@ -15,12 +15,12 @@ $accessToken = '4jqw6X3bCLfP3A7nUKyCd5uOQObSiQj0fqKGc5R/YbTfVIFPdLC11bArjhwzp9CS
     //เก็บ user id 
     $user_line_id = $arrayJson['events'][0]['source']['userId'];
     
-    $check_line_id = pg_query($connection, "SELECT line_id FROM account WHERE line_id='$user_line_id' ");
+    #$check_line_id = pg_query($connection, "SELECT line_id FROM account WHERE line_id='$user_line_id' ");
 
-    if($check_line_id==''){
+   # if($check_line_id==''){
         // Add ลง DB
         pg_query($connection, "INSERT INTO account (line_id,status) VALUES('$user_line_id','1') ");
-    }
+   # }
     
 
 
