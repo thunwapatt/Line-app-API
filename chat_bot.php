@@ -14,6 +14,9 @@ $accessToken = '4jqw6X3bCLfP3A7nUKyCd5uOQObSiQj0fqKGc5R/YbTfVIFPdLC11bArjhwzp9CS
 
     //เก็บ user id 
     $user_line_id = $arrayJson['events'][0]['source']['userId'];
+
+    //เก็บ user id 
+    $user_display_name = $arrayJson['events'][0]['source']['displayName'];
     
     $check_line_id = pg_query($connection, "SELECT line_id FROM account WHERE line_id='$user_line_id' ");
 
@@ -30,7 +33,7 @@ $accessToken = '4jqw6X3bCLfP3A7nUKyCd5uOQObSiQj0fqKGc5R/YbTfVIFPdLC11bArjhwzp9CS
     if($message == "ดีคับ"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "ดีจ้า".$check_line_id;
+        $arrayPostData['messages'][0]['text'] = "ดีจ้า".'-'.$check_line_id.'-'.$user_display_name;
         replyMsg($arrayHeader,$arrayPostData);
     }
     #ตัวอย่าง Message Type "Sticker"
