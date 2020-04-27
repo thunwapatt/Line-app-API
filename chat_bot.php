@@ -1,6 +1,6 @@
 <?php include "include/connect.php"; ?>
 <?php
-$accessToken = '4jqw6X3bCLfP3A7nUKyCd5uOQObSiQj0fqKGc5R/YbTfVIFPdLC11bArjhwzp9CSTh3H+eDbWKikgYtA6mdTNRO+TOb6GlQL/UlMU+XDkR1Zp5lL4NC9RH94Zevq7Hrf5KydxMODpcybL3Keb9imuAdB04t89/1O/w1cDnyilFU=';
+$accessToken = 'Your token';
     
     $content = file_get_contents('php://input');
     $arrayJson = json_decode($content, true);
@@ -18,14 +18,17 @@ $accessToken = '4jqw6X3bCLfP3A7nUKyCd5uOQObSiQj0fqKGc5R/YbTfVIFPdLC11bArjhwzp9CS
     //เก็บ user id 
     $user_display_name = $arrayJson['events'][0]['source']['displayName'];
     
-    $check_line_id = pg_num_rows(pg_query($connection, "SELECT line_id FROM account WHERE line_id='$user_line_id' "));
+//     $check_line_id = pg_num_rows(pg_query($connection, "SELECT line_id FROM account WHERE line_id='$user_line_id' "));
     
-   if($check_line_id==0){
-        // Add ลง DB
-        pg_query($connection, "INSERT INTO account (line_id,status) VALUES('$user_line_id','1') ");
-    }
+//    if($check_line_id==0){
+//         // Add ลง DB
+//         pg_query($connection, "INSERT INTO account (line_id,status) VALUES('$user_line_id','1') ");
+//     }
     
-
+    $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+    $arrayPostData['messages'][0]['type'] = "text";
+    $arrayPostData['messages'][0]['text'] = "LINE id ของคุณ คือ : ".'-'.$user_line_id;
+    replyMsg($arrayHeader,$arrayPostData);
 
     
 
